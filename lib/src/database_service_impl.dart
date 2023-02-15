@@ -16,7 +16,7 @@ class DatabaseServiceImpl extends DatabaseService {
       /// Retrive the device document directory
       // final appDocumentDirectory = await p.join('');
           // await path_provider.getApplicationDocumentsDirectory();
-      return Directory('./database');
+      return Directory('../database');
     } catch (_) {
       throw DatabaseError();
     }
