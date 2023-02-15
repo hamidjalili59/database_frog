@@ -4,8 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:database_service/src/database_errors.dart';
 import 'package:database_service/src/database_service.dart';
 import 'package:database_service/src/no_param.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:hive/hive.dart';
 
 class DatabaseServiceImpl extends DatabaseService {
   // final DatabaseSecurity _databaseSecurity = DatabaseSecurity();
@@ -15,9 +14,9 @@ class DatabaseServiceImpl extends DatabaseService {
   Future<Directory> _getDatabaseDirectory() async {
     try {
       /// Retrive the device document directory
-      final appDocumentDirectory =
-          await path_provider.getApplicationDocumentsDirectory();
-      return Directory('${appDocumentDirectory.path}/database');
+      // final appDocumentDirectory = await p.join('');
+          // await path_provider.getApplicationDocumentsDirectory();
+      return Directory('./database');
     } catch (_) {
       throw DatabaseError();
     }
@@ -30,10 +29,10 @@ class DatabaseServiceImpl extends DatabaseService {
       // await _databaseSecurity.createSecureKey();
 
       /// Initialize the database with a path
-      Hive.initFlutter((await _getDatabaseDirectory()).path);
-    } on path_provider.MissingPlatformDirectoryException {
+      Hive.init((await _getDatabaseDirectory()).path);
+    // } on path_provider.MissingPlatformDirectoryException {
       /// Initialize the database without any path
-      Hive.initFlutter();
+      // Hive.initFlutter();
     } catch (_) {}
   }
 
@@ -264,6 +263,7 @@ class DatabaseServiceImpl extends DatabaseService {
   /// Registers a Hive adapter
   /// If another adapter with same typeId had been already registered,
   /// the adapter will be overridden if [override] set to `true`
+  
   @override
   Future<Either<DatabaseError, NoParam>> registerAdapter<T>(
     TypeAdapter<T> adapter, {

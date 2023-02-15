@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:database_service/src/database_errors.dart';
 import 'package:database_service/src/no_param.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
 
 abstract class DatabaseService {
   const DatabaseService();
