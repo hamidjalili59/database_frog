@@ -13,9 +13,6 @@ class DatabaseServiceImpl extends DatabaseService {
 
   Future<Directory> _getDatabaseDirectory() async {
     try {
-      /// Retrive the device document directory
-      // final appDocumentDirectory = await p.join('');
-          // await path_provider.getApplicationDocumentsDirectory();
       return Directory('/database');
     } catch (_) {
       throw DatabaseError();
@@ -26,13 +23,11 @@ class DatabaseServiceImpl extends DatabaseService {
   @override
   Future initialize() async {
     try {
-      // await _databaseSecurity.createSecureKey();
 
       /// Initialize the database with a path
       Hive.init((await _getDatabaseDirectory()).path);
     // } on path_provider.MissingPlatformDirectoryException {
       /// Initialize the database without any path
-      // Hive.initFlutter();
     } catch (_) {}
   }
 
@@ -41,16 +36,8 @@ class DatabaseServiceImpl extends DatabaseService {
   @override
   Future<Box> openBox(String boxName) async {
     try {
-      // final HiveCipher? secureKey =
-          // await _databaseSecurity.readEncryptionCipher();
-      // if (secureKey == null) {
-      //   throw DatabaseError(
-      //     errorMessage: 'read_secure_key_failed',
-      //   );
-      // }
       return await Hive.openBox(
         boxName,
-        // encryptionCipher: secureKey,
       );
     } catch (e) {
       throw DatabaseError(errorMessage: e.toString());
